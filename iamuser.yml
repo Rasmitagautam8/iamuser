@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Create IAM user for CI/CD pipeline
+
+Resources:
+  MyCICDUser:
+    Type: 'AWS::IAM::User'
+    Properties:
+      UserName: MyCICDUser
+
+  MyCICDUserAccessKey:
+    Type: 'AWS::IAM::AccessKey'
+    Properties:
+      UserName: !Ref MyCICDUser
+
+Outputs:
+  CICDUserAccessKeyId:
+    Value: !Ref MyCICDUserAccessKey
+    Description: Access Key ID for the CI/CD user
+  CICDUserSecretAccessKey:
+    Value: !GetAtt MyCICDUserAccessKey.SecretAccessKey
+    Description: Secret Access Key for the CI/CD user
